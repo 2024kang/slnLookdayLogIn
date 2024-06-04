@@ -8,6 +8,8 @@
         public string txtPwd { get; set; }
         public string checkPwd { get; set; }
 
+        public int roleID = 1;
+
         //public DateOnly txtBirthday { get; set; }
  
     }

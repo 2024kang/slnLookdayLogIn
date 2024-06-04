@@ -13,9 +13,9 @@
                @*  <label class="label" for="email" >請輸入帳號</label> *@
                 <br />
                 <div style="border-color:darkgrey; text-align:center;">
-                <input type="email" id="email" placeholder="請輸入電子郵件" style="border-color:white; " @* value="ss123@gmail.com" *@ />
+                <input type="email" id="email" placeholder="請輸入電子信箱" style="border-color:white; " @* value="ss123@gmail.com" *@ />
                 </div>
-                <div id="reminder" style="text-align:center;"></div>
+                <div class="reminder" id="reminder" style="margin-left:130px;"></div>
 
 
             @*     <label class="label" for="pwd">請輸入密碼</label> *@
@@ -24,6 +24,7 @@
                     <input type="password" id="pwd" placeholder="請輸入密碼" style="border-color:white;" @*value="1234" *@ />
                     <br />
                 </div>
+                <div class ="reminder" id="pwdreminder" style="margin-left:130px;"></div>
                 <div style="text-align:center">
                 <label class="noaccount">還沒有帳號嗎? </label>
                 <a class="noaccount" href="https://localhost:7095/LogIn/register">點我註冊</a>
@@ -75,7 +76,7 @@
             font-size: 12px;
         }
 
-        #reminder {
+        .reminder {
             color: red;
         }
 
@@ -98,11 +99,31 @@
     <script>
         let loginaccount = document.getElementById('email');
         let pwd = document.getElementById('pwd');
+
         let remind = document.getElementById('reminder');
+        let pwdreminder = document.getElementById('pwdreminder');
+
         let loginbtn = document.getElementById('loginbtn');
         let customerbtn = document.getElementById('customerbtn');
         let empbtn = document.getElementById('empbtn');
 
+        loginaccount.addEventListener('blur', () => {
+            if (loginaccount.value == "") {
+                remind.textContent = "*請輸入電子信箱";
+            }
+            else { 
+                remind.textContent = "";
+            }
+        })
+
+        pwd.addEventListener('blur', () => {
+            if (pwd.value == "") {
+                pwdreminder.textContent = "*請輸入密碼";
+            }
+            else { 
+                pwdreminder.textContent = "";
+            }
+        } )
 
         loginbtn.addEventListener('click', async (event) => {
             event.preventDefault();
@@ -133,9 +154,6 @@
             loginaccount.value = 'staff123@gmail.com';
             pwd.value = '8888';
         })
-
-
-
 
     </script>
 }

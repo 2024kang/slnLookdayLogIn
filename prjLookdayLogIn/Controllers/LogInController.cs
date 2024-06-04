@@ -44,6 +44,7 @@ namespace prjLookdayLogIn.Controllers
         [HttpPost]
         public IActionResult register(User new_user)
         {
+        
             if (string.IsNullOrEmpty(new_user.Username))
             {
                 new_user.Username = "註冊失敗 使用者姓名不能為空，請重新輸入";
@@ -57,7 +58,7 @@ namespace prjLookdayLogIn.Controllers
           // 新資料傳入資料庫中
                 _context.Users.Add(new_user);
                 _context.SaveChanges();
-                return RedirectToAction("Home");
+                return RedirectToAction("LogIn");
 
         }
 

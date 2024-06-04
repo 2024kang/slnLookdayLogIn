@@ -25,7 +25,7 @@
                 <div style="border-color:darkgrey; text-align:center;">
                     <input type="text" id="txtUsername" name="user" style=" border-radius:15px 15px 15px 15px;" required />
                 </div>
-                <div class="reminder" id="remindeusername"></div>
+                <div class="reminder" id="remindeusername" style="margin-left:128px;"></div>
             </div>
             <div>
                 <label for="txtEmail" style="margin-left:128px;">請輸入電子郵件:</label>
@@ -33,7 +33,7 @@
                 <div style="border-color:darkgrey; text-align:center;">
                     <input type="email" id="txtEmail" name="email" style=" border-radius:15px 15px 15px 15px;" required />
                 </div>
-                <div class="reminder" id="remindemail"></div>
+                <div class="reminder" id="remindemail" style="margin-left:128px;"></div>
             </div>
             <div>
                 <label for="txtPwd" style="margin-left:128px;">請輸入密碼</label>
@@ -42,8 +42,8 @@
                 <div style="border-color:darkgrey; text-align:center;">
                     <input type="password" id="txtPwd" name="password" style=" border-radius:15px 15px 15px 15px;" required />
                 </div>
-                <span style="font-size:10px; margin-left:40px;">密碼長度至少8個字元，且須包含1個大寫英文字母和1個小寫英文字母的英數字組合</span>
-                <div class="reminder" id="remindpwd">
+                <span style="font-size:10px; margin-left:85px;">須各包含1個大寫英文字母的英數字組合且密碼長度且至少8個字元</span>
+                <div class="reminder" id="remindpwd" style="margin-left:128px;">
                 </div>
             </div>
             <div>
@@ -52,11 +52,14 @@
                 <div style="border-color:darkgrey; text-align:center;">
                     <input type="password" id="checkPwd" name="checkpassword" style=" border-radius:15px 15px 15px 15px;" />
                 </div>
-                <div class="reminder" id="remindcheckpwd"></div>
+                <div class="reminder" id="remindcheckpwd" style="margin-left:128px;"></div>
+            </div>
+            <div>
+                <input type="hidden" id="roleID" />
             </div>
             <br />
             <button type="submit" id="btnsubmit" style="margin-left:270px;">送出</button>
-            <div class="reminder" id="remindsubmit"></div>
+            <div class="reminder" id="remindsubmit" style="margin-left:128px;"></div>
         </form>
     </div>
 
@@ -93,7 +96,7 @@
         txtusername.addEventListener('blur', () => {
 
             if (txtusername.value == "") {
-                remindeusername.textContent = "請輸入使用者名稱"
+                remindeusername.textContent = "*請輸入使用者名稱"
             }
             else {
                 remindeusername.textContent = "";
@@ -103,18 +106,25 @@
 
         useremail.addEventListener('blur', async () => {
 
-            let url = "@Url.Content("~/LogIn/checkaccount/")?email" + useremail.value;
-
-            let response = await fetch(url);
-            let data = await response.text();
-
-            if (data == "True") {
-                remindemail.textContent = "電子郵件已註冊，請重新輸入";
+            if (useremail.value == "") {
+                remindemail.textContent = "*請輸入電子信箱";
             }
             else {
-                remindemail.textContent = "";
-                return;
+                let url = "@Url.Content("~/LogIn/checkaccount/")?email" + useremail.value;
+
+                let response = await fetch(url);
+                let data = await response.text();
+
+                if (data == "True") {
+                    remindemail.textContent = "*電子郵件已註冊，請重新輸入";
+                }
+                else {
+                    remindemail.textContent = "";
+                    return;
+                }
             }
+
+            
         })
 
         userpwd.addEventListener('blur', () => {
@@ -132,15 +142,15 @@
             } else {
                 // 如果長度檢查不通過，設置相應的錯誤信息
                 if (!lengthcheck) {
-                    remindpwd.textContent = '請輸入長度大於8的密碼';
+                    remindpwd.textContent = '*請輸入長度大於8的密碼';
                 }
                 // 如果大寫字母檢查不通過，設置相應的錯誤信息
                 else if (!uppercasecheck) {
-                    remindpwd.textContent = '密碼中必須包含至少一個大寫字母';
+                    remindpwd.textContent = '*密碼中必須包含至少一個大寫字母';
                 }
                 // 如果小寫字母檢查不通過，設置相應的錯誤信息
                 else if (!lowercasecheck) {
-                    remindpwd.textContent = '密碼中必須包含至少一個小寫字母';
+                    remindpwd.textContent = '*密碼中必須包含至少一個小寫字母';
                 }
                 event.preventDefault(); // 阻止表單的提交
             }
@@ -149,7 +159,7 @@
 
         usercheckpwd.addEventListener('blur', () => {
             if (usercheckpwd.value !== userpwd.value) {
-                remindcheckpwd.textContent = '密碼輸入錯誤，請重新輸入';
+                remindcheckpwd.textContent = '*密碼輸入錯誤，請重新輸入';
             } else {
                 remindcheckpwd.textContent = '';
             }
