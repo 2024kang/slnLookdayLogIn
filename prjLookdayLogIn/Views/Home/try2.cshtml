@@ -1,0 +1,10 @@
+﻿@model IEnumerable<prjLookdayLogIn.Models.Booking>
+
+    <ul>
+    @foreach (var booking in Model)
+    {
+        <li>@booking.BookingId</li>
+    
+    }
+   
+    </ul>

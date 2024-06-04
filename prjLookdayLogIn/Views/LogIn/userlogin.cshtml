@@ -1,0 +1,141 @@
+﻿
+
+<div class="main-container" style="width:436px; max-height:619px;margin:auto;">
+    <div><img src="~/images/logo.jpg" style="width:180px; max-height:320px;" /></div>
+
+    <div class="a1" style="max-height:525px;">
+        <div>
+            <div>
+                <div style="text-align:center;">
+                    <h3>登入 / 註冊</h3>
+                    <span style="font-size:15px">註冊Lookday帳戶，享會員禮遇標籤商品專屬優惠價!</span>
+                </div>
+               @*  <label class="label" for="email" >請輸入帳號</label> *@
+                <br />
+                <div style="border-color:darkgrey; text-align:center;">
+                <input type="email" id="email" placeholder="請輸入電子郵件" style="border-color:white; " @* value="ss123@gmail.com" *@ />
+                </div>
+                <div id="reminder" style="text-align:center;"></div>
+
+
+            @*     <label class="label" for="pwd">請輸入密碼</label> *@
+                <br />
+                <div style="border-color:darkgrey; text-align:center;">
+                    <input type="password" id="pwd" placeholder="請輸入密碼" style="border-color:white;" @*value="1234" *@ />
+                    <br />
+                </div>
+                <div style="text-align:center">
+                <label class="noaccount">還沒有帳號嗎? </label>
+                <a class="noaccount" href="https://localhost:7095/LogIn/register">點我註冊</a>
+                    <br /> <br />
+                </div>
+                <div>
+                <button id="loginbtn" style="margin-left:270px;">登入</button>
+                <br />
+                </div>
+                <div style="text-align:center">
+                    <span style="font-size:15px ; color:gainsboro;">———————————或快速登入———————————</span>
+                    <br /> <br />
+                </div>
+                <div style="display:flex; justify-content:center;">
+                    <div style="margin-right:20px;"><img src="~/images/googlelogo.svg" /></div>
+                    <div style="margin-right:20px;"><img src="~/images/fblogo.svg" />
+                </div>
+                    <div><img src="~/images/applelogo.svg" /></div>
+                </div>
+                <div id="btn-container">
+                    <button id="customerbtn" style="margin-right:300px; border-color:transparent; background-color:transparent;text-decoration:underline;">顧客</button>
+                    <button id="empbtn" style="border-color:transparent; background-color:transparent;text-decoration:underline;">員工</button>
+                </div>
+                <div>
+                    <p style="font-size:13px; margin-left:30px;">
+                        註冊或登入即表示你了解並同意Lookday
+                        <a href="https://www.klook.com/zh-TW/conditions/" target="_blank">服務條款</a>
+                        與
+                        <a href="https://www.klook.com/zh-TW/policy/" target="_blank">隱私權條款</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    <style>
+        .main-container {
+            width: 50% ;
+            height:80%;
+            /*  line-height:50px;
+                                   padding:10px; */
+            background-color: #FFAF60;
+            /*            color:red; */
+            border-radius: 15px 15px 15px 15px;
+        }
+
+        .noaccount {
+            font-size: 12px;
+        }
+
+        #reminder {
+            color: red;
+        }
+
+        #loginbtn {
+            display: flex;
+            align-content: center;
+        }
+
+        #btn-container {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 20px;
+        }
+
+    </style>
+}
+
+
+@section Scripts {
+    <script>
+        let loginaccount = document.getElementById('email');
+        let pwd = document.getElementById('pwd');
+        let remind = document.getElementById('reminder');
+        let loginbtn = document.getElementById('loginbtn');
+        let customerbtn = document.getElementById('customerbtn');
+        let empbtn = document.getElementById('empbtn');
+
+
+        loginbtn.addEventListener('click', async (event) => {
+            event.preventDefault();
+            let url = `@Url.Content("~/LogIn/pwdcheck/")?email=${loginaccount.value}&password=${pwd.value}`;
+            let response = await fetch(url);
+
+            //json()
+            let data = await response.json();
+
+            console.log(data);
+
+            if (data === "True") {
+                alert("登入成功");
+                return RedirectToAction("Index");
+            }
+            else {
+                remind.textContent = "帳號/密碼輸入錯誤";
+            }
+
+        });
+
+        customerbtn.addEventListener('click', () => {
+            loginaccount.value = 'qq321@gmail.com';
+            pwd.value = '2234';
+        });
+
+        empbtn.addEventListener('click', () => {
+            loginaccount.value = 'staff123@gmail.com';
+            pwd.value = '8888';
+        })
+
+
+
+
+    </script>
+}
