@@ -1,7 +1,8 @@
 ﻿
 
 <div class="main-container" style="width:436px; max-height:619px;margin:auto;">
-    <div><img src="~/images/logo.jpg" style="width:180px; max-height:320px;" /></div>
+    <div><img src="~/images/logofrmmain.png" style="width:180px; max-height:320px;" /></div>
+   
 
     <div class="a1" style="max-height:525px;">
         <div>
@@ -13,7 +14,7 @@
                @*  <label class="label" for="email" >請輸入帳號</label> *@
                 <br />
                 <div style="border-color:darkgrey; text-align:center;">
-                <input type="email" id="email" placeholder="請輸入電子信箱" style="border-color:white; " @* value="ss123@gmail.com" *@ />
+                    <input type="email" id="email" placeholder="請輸入電子信箱" style="border-radius:10px 10px 10px 10px;width:280px; border-color:white; " required="required" ; />
                 </div>
                 <div class="reminder" id="reminder" style="margin-left:130px;"></div>
 
@@ -21,7 +22,7 @@
             @*     <label class="label" for="pwd">請輸入密碼</label> *@
                 <br />
                 <div style="border-color:darkgrey; text-align:center;">
-                    <input type="password" id="pwd" placeholder="請輸入密碼" style="border-color:white;" @*value="1234" *@ />
+                    <input type="password" id="pwd" placeholder="請輸入密碼" style="border-radius:10px 10px 10px 10px;width:280px; border-color:white;" required="required" ; />
                     <br />
                 </div>
                 <div class ="reminder" id="pwdreminder" style="margin-left:130px;"></div>
@@ -107,23 +108,23 @@
         let customerbtn = document.getElementById('customerbtn');
         let empbtn = document.getElementById('empbtn');
 
-        loginaccount.addEventListener('blur', () => {
-            if (loginaccount.value == "") {
-                remind.textContent = "*請輸入電子信箱";
-            }
-            else { 
-                remind.textContent = "";
-            }
-        })
+        // loginaccount.addEventListener('blur', () => {
+        //     if (loginaccount.value == "") {
+        //         remind.textContent = "*請輸入電子信箱";
+        //     }
+        //     else { 
+        //         remind.textContent = "";
+        //     }
+        // })
 
-        pwd.addEventListener('blur', () => {
-            if (pwd.value == "") {
-                pwdreminder.textContent = "*請輸入密碼";
-            }
-            else { 
-                pwdreminder.textContent = "";
-            }
-        } )
+        // pwd.addEventListener('blur', () => {
+        //     if (pwd.value == "") {
+        //         pwdreminder.textContent = "*請輸入密碼";
+        //     }
+        //     else { 
+        //         pwdreminder.textContent = "";
+        //     }
+        // } )
 
         loginbtn.addEventListener('click', async (event) => {
             event.preventDefault();
@@ -136,8 +137,10 @@
             console.log(data);
 
             if (data === "True") {
+                remind.textContent = "";
                 alert("登入成功");
-                return RedirectToAction("Index");
+                //return Ok("登入成功");
+                return RedirectToAction("Home");
             }
             else {
                 remind.textContent = "帳號/密碼輸入錯誤";

@@ -1,12 +1,11 @@
 ﻿
-<h1>註冊帳號</h1>
 
 <div style="width:436px; max-height:619px;margin:auto; background-color: #FFAF60;border-radius: 20px 20px 20px 20px;">
-    <div><img src="~/images/logo.jpg" style="width:180px; max-height:320px;" /></div>
+    <div><img src="~/images/logofrmmain.png" style="width:180px; max-height:320px;" /></div>
 
     <div class="a1" style="max-height:525px;">
         @* 這表示表單數據將使用 HTTP POST 方法發送到指定的伺服器端點（在 action 屬性中指定） *@
-        <form method="post" action="~/LogIn/register" id="form1">
+        <form method="post" action="~/LogIn/register" id="form1" enctype="multipart/form-data">
             @*   <div>
             @* for 跟 id名稱要一樣 讓典籍標籤的時候聚焦到輸入框
             name屬性將再提交表單時將輸入的值作為名稱參數傳遞給伺服器 *@
@@ -20,45 +19,50 @@
                 <span style="font-size:15px">註冊Lookday帳戶，享會員禮遇標籤商品專屬優惠價!</span>
             </div>
             <div>
-                <label for="txtUsername" style="margin-left:128px;">請輸入用戶名稱:</label>
+                <label for="txtUsername" style="margin-left:128px; margin-left:80px;">請輸入用戶名稱:</label>
                 <br />
                 <div style="border-color:darkgrey; text-align:center;">
-                    <input type="text" id="txtUsername" name="user" style=" border-radius:15px 15px 15px 15px;" required />
+                    <input type="text" id="txtUsername" name="username" style=" border-radius:10px 10px 10px 10px;width:280px; " required />
                 </div>
-                <div class="reminder" id="remindeusername" style="margin-left:128px;"></div>
+                <div class="reminder" id="remindeusername" style="margin-left:80px;"></div>
             </div>
             <div>
-                <label for="txtEmail" style="margin-left:128px;">請輸入電子郵件:</label>
+                <label for="txtEmail" style="margin-left:80px;">請輸入電子郵件:</label>
                 <br />
                 <div style="border-color:darkgrey; text-align:center;">
-                    <input type="email" id="txtEmail" name="email" style=" border-radius:15px 15px 15px 15px;" required />
+                    <input type="email" id="txtEmail" name="email" style="border-radius:10px 10px 10px 10px;width:280px; "required />
                 </div>
-                <div class="reminder" id="remindemail" style="margin-left:128px;"></div>
+                <div class="reminder" id="remindemail" style="margin-left:80px;"></div>
             </div>
             <div>
-                <label for="txtPwd" style="margin-left:128px;">請輸入密碼</label>
+                <label for="txtPwd" style="margin-left:80px;">請輸入密碼</label>
+                <div style="border-color:darkgrey; text-align:center;">
+                    <input type="password" id="txtPwd" name="password" style=" border-radius:10px 10px 10px 10px;width:280px;" required ;placeholder="長度至少八個字且須包含1個大小寫英文字母" />
+                </div>
+                <div class="reminder" id="remindpwd" style="margin-left:80px;">
+                </div>
+            </div>
+            <div>
+                <label for="checkPwd" style="margin-left:80px;">請再次確認密碼:</label>
+                <br />
+                <div style="border-color:darkgrey; text-align:center;">
+                    <input type="password" id="checkPwd" name="checkpassword" style=" border-radius:10px 10px 10px 10px;width:280px;" required />
+                </div>
 
-                <br />
+
                 <div style="border-color:darkgrey; text-align:center;">
-                    <input type="password" id="txtPwd" name="password" style=" border-radius:15px 15px 15px 15px;" required />
+                    <input type="hidden" id="roleID" value="1"/>
                 </div>
-                <span style="font-size:10px; margin-left:85px;">須各包含1個大寫英文字母的英數字組合且密碼長度且至少8個字元</span>
-                <div class="reminder" id="remindpwd" style="margin-left:128px;">
-                </div>
-            </div>
-            <div>
-                <label for="checkPwd" style="margin-left:128px;">請再次確認密碼:</label>
-                <br />
-                <div style="border-color:darkgrey; text-align:center;">
-                    <input type="password" id="checkPwd" name="checkpassword" style=" border-radius:15px 15px 15px 15px;" />
-                </div>
-                <div class="reminder" id="remindcheckpwd" style="margin-left:128px;"></div>
+
+
+
+                <div class="reminder" id="remindcheckpwd" style="margin-left:80px;"></div>
             </div>
             <div>
                 <input type="hidden" id="roleID" />
             </div>
             <br />
-            <button type="submit" id="btnsubmit" style="margin-left:270px;">送出</button>
+            <button type="submit" id="btnsubmit" style="margin-left:80px;;border-radius:10px 10px 10px 10px;width:280px;" required>送出</button>
             <div class="reminder" id="remindsubmit" style="margin-left:128px;"></div>
         </form>
     </div>
@@ -93,23 +97,23 @@
 
         // console.log(userbirthday);
 
-        txtusername.addEventListener('blur', () => {
+        // txtusername.addEventListener('blur', () => {
 
-            if (txtusername.value == "") {
-                remindeusername.textContent = "*請輸入使用者名稱"
-            }
-            else {
-                remindeusername.textContent = "";
-            }
+        //     if (txtusername.value == "") {
+        //         remindeusername.textContent = "*請輸入使用者名稱"
+        //     }
+        //     else {
+        //         remindeusername.textContent = "";
+        //     }
 
-        });
+        // });
 
         useremail.addEventListener('blur', async () => {
 
-            if (useremail.value == "") {
-                remindemail.textContent = "*請輸入電子信箱";
-            }
-            else {
+            // if (useremail.value == "") {
+            //     remindemail.textContent = "*請輸入電子信箱";
+            // }
+            // else {
                 let url = "@Url.Content("~/LogIn/checkaccount/")?email" + useremail.value;
 
                 let response = await fetch(url);
@@ -122,7 +126,7 @@
                     remindemail.textContent = "";
                     return;
                 }
-            }
+            // }
 
             
         })
@@ -166,41 +170,37 @@
         });
 
 
-        btnsubmit.addEventListener('click', async (event) => {
-            event.preventDefault(); // 阻止表單的提交
+        // btnsubmit.addEventListener('click', async (event) => {
+        //     event.preventDefault(); // 阻止表單的提交
 
-            let form1 = document.getElementById('form1');
-            let formdata = new FormData(form1);
+        //     let form1 = document.getElementById('form1');
+        //     let formdata = new FormData(form1);
 
-            //let url = `@Url.Content("~/LogIn/register/")`;
-            let url = `@Url.Action("register", "LogIn")`;
+        //     //let url = `@Url.Content("~/LogIn/register/")`;
+        //     let url = `@Url.Action("register", "LogIn")`;
 
-            try {
-                let response = await fetch(url, {
-                    method: 'POST',
-                    body: formdata
-                });
+           
+        //         let response = await fetch(url, {
+        //             method: 'POST',
+        //             body: formdata
+        //         });
 
-                if (!response.ok) {
-                    let errorMessage = `HTTP 错误! 状态: ${response.status}`;
-                    console.error(errorMessage);
-                    console.error(await response.text()); // 打印响应内容以获取更多调试信息
-                    throw new Error(errorMessage);
-                }
+        //         if (!response.ok) {
+        //             let errorMessage = `HTTP 錯誤! 狀態: ${response.status}`;
+        //             console.error(errorMessage);
+        //             console.error(await response.text()); // 打印响应内容以获取更多调试信息
+        //             throw new Error(errorMessage);
+        //         }
 
-                let data = await response.json();
-                console.log(data);
-
-                // else {
-                //     let errortext = await response.text();
-                //     remindsubmit.textContent = "錯誤:無法提交表單" + errortext ;
-                // }
-            }
-            catch (error) {
-                console.log('錯誤', error);
-                // remindsubmit.textContent = "提交過程中出現錯誤:" + error.message ;
-            }
-        })
+        //         let data = await response.json();
+        //         if (data.success) {
+        //             remindsubmit.textContent = "註冊成功";
+        //         }
+        //         else {
+        //             remindsubmit.textContent = "錯誤:${data.message }";
+        //         }
+           
+        // })
 
     </script>
 }

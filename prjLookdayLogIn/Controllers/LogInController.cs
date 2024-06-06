@@ -47,18 +47,26 @@ namespace prjLookdayLogIn.Controllers
         
             if (string.IsNullOrEmpty(new_user.Username))
             {
-                new_user.Username = "註冊失敗 使用者姓名不能為空，請重新輸入";
+                return BadRequest("Registration failed: Username cannot be empty");
+                //new_user.Username =
+                //"註冊失敗 使用者姓名不能為空，請重新輸入";
                 //if (string.IsNullOrEmpty(new_user.Password))
                 //{
                 //    new_user.Password = "註冊失敗 密碼不能為空";
                 //    return View();
                 //}
+                //return Ok("LogIn");
+            }
+
+            if (new_user.RoleId == 0)
+            {
+                new_user.RoleId = 1;
             }
 
           // 新資料傳入資料庫中
                 _context.Users.Add(new_user);
                 _context.SaveChanges();
-                return RedirectToAction("LogIn");
+                return Ok("註冊成功");
 
         }
 

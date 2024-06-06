@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="efpt.config.json" />
+    <_ContentIncludedByDefault Remove="wwwroot\Images\LogoFrmMain.png" />
   </ItemGroup>
 
   <ItemGroup>
