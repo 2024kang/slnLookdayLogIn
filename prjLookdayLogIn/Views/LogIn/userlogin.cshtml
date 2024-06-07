@@ -16,7 +16,7 @@
                 <div style="border-color:darkgrey; text-align:center;">
                     <input type="email" id="email" placeholder="請輸入電子信箱" style="border-radius:10px 10px 10px 10px;width:280px; border-color:white; " required="required" ; />
                 </div>
-                <div class="reminder" id="reminder" style="margin-left:130px;"></div>
+                <div class="reminder" id="reminder" style="margin-left:80px;"></div>
 
 
             @*     <label class="label" for="pwd">請輸入密碼</label> *@
@@ -25,14 +25,15 @@
                     <input type="password" id="pwd" placeholder="請輸入密碼" style="border-radius:10px 10px 10px 10px;width:280px; border-color:white;" required="required" ; />
                     <br />
                 </div>
-                <div class ="reminder" id="pwdreminder" style="margin-left:130px;"></div>
+                <div class ="reminder" id="pwdreminder" ></div>
                 <div style="text-align:center">
+             
                 <label class="noaccount">還沒有帳號嗎? </label>
                 <a class="noaccount" href="https://localhost:7095/LogIn/register">點我註冊</a>
                     <br /> <br />
                 </div>
                 <div>
-                <button id="loginbtn" style="margin-left:270px;">登入</button>
+                    <button id="loginbtn" style="margin-left:310px; border-radius:5px 5px 5px 5px">登入</button>
                 <br />
                 </div>
                 <div style="text-align:center">
@@ -154,8 +155,7 @@
         //     }
         //     catch(error) { 
         //         console.log('Error', error);
-        //     }
-            
+        //     }            
 
             let url = `@Url.Content("~/LogIn/pwdcheck/")?email=${loginaccount.value}&password=${pwd.value}`;
             let response = await fetch(url);
@@ -165,14 +165,17 @@
 
             console.log(data);
 
-            if (data === "True") {
+
+            // 確保兼容字串 "True" 和布林值 true
+            if (data === "True" || data === true) {
                 remind.textContent = "";
                 alert("登入成功");
                 //return Ok("登入成功");
-                return RedirectToAction("Home");
+                // return RedirectToAction("Home");
+                window.location.href = '@Url.Action("Index", "Home")';
             }
             else {
-                remind.textContent = "帳號/密碼輸入錯誤";
+                remind.textContent = "*帳號/密碼輸入錯誤";
             }
 
         });

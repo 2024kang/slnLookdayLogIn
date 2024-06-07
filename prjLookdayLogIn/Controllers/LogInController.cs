@@ -35,20 +35,18 @@ namespace prjLookdayLogIn.Controllers
         //        return Json("False");
         //    }
         //}
-
-       
         public IActionResult pwdcheck(string email, string password)
         {
             //是 LINQ 中的一個方法，用於查詢序列中符合指定條件的唯一一個元素
             //如果沒有符合條件的使用者，則 users 變數將為 null
-            var users = _context.Users.SingleOrDefault(x => x.Email == email);
+            var users = _context.Users.SingleOrDefault(x => x.Email == email && x.Password == password);
 
             if (users != null)
             {
                 //驗證密碼
-                bool isPasswordValid = CCryptography.VerifyPassword(password, users.Password, "gugubird");
-                if (isPasswordValid)
-                    return Json("True");
+                //bool isPasswordValid = CCryptography.VerifyPassword(password, users.Password, "gugubird");
+                //if (isPasswordValid)
+                return Json("True");
             }
              
             return Json("False");
