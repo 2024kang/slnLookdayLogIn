@@ -5,11 +5,42 @@ using prjLookdayLogIn.ViewModel;
 using Register_and_login_test;
 using System.Text;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace prjLookdayLogIn.Controllers
 {
     public class LogInController : Controller
     {
+        //第三方登入
+        //private readonly IHttpClientFactory _httpClientFactory;
+        //public LogInController(IHttpClientFactory httpClientFactory) 
+        //{
+        //    _httpClientFactory = httpClientFactory;
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> GoogleLogin(string idToken)
+        //{
+        //    var httpClient = _httpClientFactory.CreateClient();
+        //    var googleResponse = await httpClient.GetAsync($"https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={idToken}");
+        //    if (googleResponse.IsSuccessStatusCode)
+        //    {
+        //        var googleData = JObject.Parse(await googleResponse.Content.ReadAsStringAsync());
+        //        var userId = googleData["sub"].ToString();
+        //        var email = googleData["email"].ToString();
+        //        // 在這裡處理登錄或註冊邏輯，例如將用戶信息存入資料庫
+
+        //        return Ok("登錄成功");
+        //    }
+        //    else 
+        //    {
+        //        return BadRequest("Google 登錄失敗");
+        //    }
+
+        //}
+
         private readonly lookdaysContext _context;
         public LogInController(lookdaysContext context)
         {

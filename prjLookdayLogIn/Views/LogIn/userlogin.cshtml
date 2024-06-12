@@ -41,7 +41,7 @@
                     <br /> <br />
                 </div>
                 <div style="display:flex; justify-content:center;">
-                    <div style="margin-right:20px;"><img src="~/images/googlelogo.svg" /></div>
+                    <div style="margin-right:20px;"><img src="~/images/googlelogo.svg" id="google-login-button" /></div>
                     <div style="margin-right:20px;"><img src="~/images/fblogo.svg" />
                 </div>
                     <div><img src="~/images/applelogo.svg" /></div>
@@ -99,6 +99,39 @@
 
 @section Scripts {
     <script>
+
+    //     <script src="https://apis.google.com/js/platform.js" async defer ></script>
+    // <script>
+    //         function onGoogleLoginSuccess(googleUser) {
+    //             var id_token = googleUser.getAuthResponse().id_token;
+    //             console.log("ID Token: " + id_token);
+
+    //             // 在這裡可以將 ID Token 發送到後端進行驗證和處理
+    //         }
+
+    //     function onGoogleLoginFailure(error) {
+    //         console.error("Google 登錄失敗:", error);
+    //     }
+
+    //     function renderGoogleLoginButton() {
+    //         gapi.signin2.render('google-login-button', {
+    //             'scope': 'profile email',
+    //             'width': 200,
+    //             'height': 40,
+    //             'longtitle': true,
+    //             'theme': 'dark',
+    //             'onsuccess': onGoogleLoginSuccess,
+    //             'onfailure': onGoogleLoginFailure
+    //         });
+    //     }
+
+    //     // 初始化 Google 登錄按鈕
+    //     gapi.load('auth2', renderGoogleLoginButton);
+
+
+
+
+
         let loginaccount = document.getElementById('email');
         let pwd = document.getElementById('pwd');
 
