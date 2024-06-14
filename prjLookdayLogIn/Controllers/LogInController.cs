@@ -13,34 +13,6 @@ namespace prjLookdayLogIn.Controllers
 {
     public class LogInController : Controller
     {
-        //第三方登入
-        //private readonly IHttpClientFactory _httpClientFactory;
-        //public LogInController(IHttpClientFactory httpClientFactory) 
-        //{
-        //    _httpClientFactory = httpClientFactory;
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> GoogleLogin(string idToken)
-        //{
-        //    var httpClient = _httpClientFactory.CreateClient();
-        //    var googleResponse = await httpClient.GetAsync($"https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={idToken}");
-        //    if (googleResponse.IsSuccessStatusCode)
-        //    {
-        //        var googleData = JObject.Parse(await googleResponse.Content.ReadAsStringAsync());
-        //        var userId = googleData["sub"].ToString();
-        //        var email = googleData["email"].ToString();
-        //        // 在這裡處理登錄或註冊邏輯，例如將用戶信息存入資料庫
-
-        //        return Ok("登錄成功");
-        //    }
-        //    else 
-        //    {
-        //        return BadRequest("Google 登錄失敗");
-        //    }
-
-        //}
-
         private readonly lookdaysContext _context;
         public LogInController(lookdaysContext context)
         {
@@ -48,36 +20,26 @@ namespace prjLookdayLogIn.Controllers
         }
         public IActionResult userlogin()
         {
-            //if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGIN_MEMBER))
             return View();
-            //return View("Index");
         }
 
-        //public IActionResult pwdcheck(string email, string password)
-        //{
-        //    var checkpwd = _context.Users.SingleOrDefault(x => x.Email == email && x.Password == password);
-
-        //    if (checkpwd != null)
-        //    {
-        //        return Json("True");
-        //    }
-        //    else
-        //    {
-        //        return Json("False");
-        //    }
-        //}
         public IActionResult pwdcheck(string email, string password)
         {
             //是 LINQ 中的一個方法，用於查詢序列中符合指定條件的唯一一個元素
             //如果沒有符合條件的使用者，則 users 變數將為 null
-            var users = _context.Users.SingleOrDefault(x => x.Email == email && x.Password == password);
+            var users = _context.Users.SingleOrDefault(x => x.Email == email);
 
             if (users != null)
             {
-                //驗證密碼
-                //bool isPasswordValid = CCryptography.VerifyPassword(password, users.Password, "gugubird");
-                //if (isPasswordValid)
-                return Json("True");
+                //使用CCryptography.VerifyPassword方法驗證密碼
+                bool isPasswordValid = CCryptography.VerifyPassword(password, users.Password, "gugubird");
+
+                if (isPasswordValid) 
+                {
+                    return Json("True");
+                }
+
+                
             }
              
             return Json("False");
@@ -98,14 +60,6 @@ namespace prjLookdayLogIn.Controllers
             if (string.IsNullOrEmpty(new_user.Username) || string.IsNullOrEmpty(new_user.Email) || string.IsNullOrEmpty(new_user.Password))
             {
                 return BadRequest("姓名、電子信箱、密碼不能為空");
-                //new_user.Username =
-                //"註冊失敗 使用者姓名不能為空，請重新輸入";
-                //if (string.IsNullOrEmpty(new_user.Password))
-                //{
-                //    new_user.Password = "註冊失敗 密碼不能為空";
-                //    return View();
-                //}
-                //return Ok("LogIn");
             }
 
             string hashedPassword = CCryptography.HashPasswordWithSalt(new_user.Password);
@@ -137,12 +91,5 @@ namespace prjLookdayLogIn.Controllers
             return Content(userExists.ToString(), "text/plain", System.Text.Encoding.UTF8);
         }
 
-        //public IActionResult Index()
-        //{
-        //    //防宵小
-        //    if (HttpContext.Session.Keys.Contains(CDictionary.SK_LOGIN_MEMBER))
-        //        return View();
-        //    return View("LogIn");
-        //}
     }
 }

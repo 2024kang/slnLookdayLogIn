@@ -35,24 +35,33 @@ namespace Register_and_login_test
         }
 
         
-        public static string HashPasswordWithSalt(string password)
+        public static string HashPasswordWithSalt(string password, byte[] salt)
         {
-            
             using (SHA256 sha256 = SHA256.Create())
             {
-                string saltString = "gugubird";
-                byte[] saltBytes = GetSaltBytes(saltString);
-                byte[] saltedPassword = Encoding.UTF8.GetBytes(password).Concat(saltBytes).ToArray();
+                //string saltString = "gugubird";
+                //byte[] saltBytes = GetSaltBytes(saltString);
+                byte[] saltedPassword = Encoding.UTF8.GetBytes(password).Concat(salt).ToArray();
                 byte[] hash = sha256.ComputeHash(saltedPassword);
                 return Convert.ToBase64String(hash);
             }
         }
 
+        public static string HashPasswordWithSalt(string password) 
+        {
+            string saltString = "gugubird";
+            byte[] saltBytes = GetSaltBytes(saltString);
+            return HashPasswordWithSalt(password, saltBytes);
+        }
+
         public static bool VerifyPassword(string enteredPassword, string storedHash, string saltString)
         {
-            string hashOfEnteredPassword = HashPasswordWithSalt(enteredPassword);
+            byte[] saltBytes = GetSaltBytes(saltString);
+            string hashOfEnteredPassword = HashPasswordWithSalt(enteredPassword, saltBytes);
             return hashOfEnteredPassword == storedHash;
         }
+
+        
 
     }
 }
